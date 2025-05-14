@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新人研修音声解析システム</title>
+    <style>
+        header {
+            display: flex;
+            margin-bottom: 45px; /* 下のマージン */
+            width: 100%;
+            height: 55px;
+            background-color: #658EA7; /* 背景色の設定 */
+            vertical-align: top; /* 上揃え */
+        }
+        /* 見出しのスタイル設定 */
+        h1 {
+            font-size: 20px; /* フォントサイズ */
+            margin-left: 35px;
+            vertical-align: top; /* 上揃え */
+        }
+        h2 {
+            position: absolute;
+            right: 45px;
+            margin-top: 10px;
+            width: 35px;
+            height: auto;
+        }
+        body {
+            font-family: Helvetica;  /* フォントの指定 */
+            margin: 0; /* marginのリセット */
+            padding: 0; /* paddingのリセット */
+            display: flex; /* フレックスボックスを使用 */
+            flex-direction: column; /* 縦に並べる */
+            
+            height: 100%; /* 高さを画面全体に設定 */
+            background-color: #ffffff;
+        }
+        
+        /* コンテナのスタイル */
+        .container {
+            display: flex; /* フレックスボックスを使用 */
+            width: 100%; /* 幅 */
+            height: 700px;
+            padding: 20px; /* 内部余白 */
+            justify-content: center; /* 垂直中央揃え */
+            text-align: center; /* 中央揃え */
+            margin: 30px 0px 0px 0px; /* 上右下左のマージン */
+
+        }
+        
+        /* ラジオボタンのグループ化 */
+        .radio-group1, .radio-group2 {
+            display: flex; /* フレックスボックスを使用 */
+            height: 450px;
+            width: 240px; /* 幅 */
+            font-size: 28px; /* フォントサイズ */
+            text-align: left; /* 左揃え */
+            margin: 0px 80px 40px 20px;
+            border-radius: 10px; /* 角の丸み */
+            background-color: #B9CED3;
+        }
+        /* 各ラジオボタンのスタイル */
+        .radio-group-item {
+            display: flex; /* フレックスボックスを使用 */
+            flex-direction: column; /* 縦並び */
+            font-size: 25pt;
+            padding: 10px;
+            margin-bottom: 3px;
+            background-color: #E8F1F3;
+        }
+        /* 各ラジオボタンのラベルスタイル */
+        .radio-grouplabel {
+            width: 240px;
+            text-align: center;
+            font-size: 30px; /* フォントサイズ */
+            font-weight: bold; /* 太字 */
+            margin-bottom: 10px; /* 下のマージン */
+            padding: 10px;
+        }
+        input[type="radio"] {
+            transform: scale(1.5);
+            margin: 5px;
+        }
+        .box {
+            display: flex;
+            flex-direction: column; /* 縦に並べる */
+            margin-left: 0px;
+            
+        }
+        /* ドロップダウンのスタイル */
+        .dropdown {
+            width: 400px; /* 幅 */
+            height: 100px; /* 高さ */
+            font-size: 30px; /* フォントサイズ */
+            margin-bottom: 30px; /* ドロップダウン下に余白 */
+            justify-content: center; /* 横方向に中央揃え */
+            text-align: center; /* 中央揃え */
+            border: 3px solid #0e3d6e;
+            padding: 5px;
+            border-radius: 10px;
+
+        }
+        /* ボタンコンテナのスタイル */
+        .button-container {
+            display: flex; /* フレックスボックスを使用 */
+            justify-content: center; /* 横方向に中央揃え */
+            margin-top: 30px; /* 上のマージン */
+        }
+        /* ボタンのスタイル設定 */
+        .button {
+            width: 250px; /* ボタンの幅 */
+            height: 250px; /* ボタンの高さ */
+            background-color: #CDE2E7; /* 背景色 */
+            border: none; /* ボーダーなし */
+            cursor: pointer; /* カーソルをポインターに */
+            margin: 200px 30px 0px 30px; /* 上右下左のマージン */
+            border-radius: 50px; /* 角の丸み */
+        }
+        /* ボタンにホバーしたときのスタイル設定 */
+        .button:hover {
+            background-color: #B9CED3; /* ホバー時の背景色 */
+        }
+        /* メインメニューへ戻るボタンのスタイル */
+        .back-button {
+            cursor: pointer; /* カーソルをポインターに */
+            position: absolute;
+            width: 35px;
+            height: auto;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 style="color: #ffffff;">新人研修音声解析システム</h1>
+        <h2><img src="images/Home.png" class="back-button" onclick="goToMainMenu()" ></h2>    
+    </header>
+
+    <div class="container">
+        <!-- ラジオボタンの選択肢 -->
+        <div class="radio-group1">
+            <!-- 審査回数のラジオボタン -->
+            <div class="radio-grouplabel">
+                <p style="color:#0e3d6e">審査回数</p>
+                    
+                <div class="radio-group-item">
+                    <label><input type="radio" name="count" value="0">  初期値</label>
+                    <label><input type="radio" name="count" value="1"> 1 回目</label>
+                    <label><input type="radio" name="count" value="2"> 2 回目</label>
+                    <label><input type="radio" name="count" value="3"> 3 回目</label>
+                    <label><input type="radio" name="count" value="4"> 4 回目</label>
+                    <label><input type="radio" name="count" value="5"> 5 回目</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 時間設定のラジオボタン -->
+        <div class="radio-group2">
+            <div class="radio-grouplabel">
+                <p style="color:#0e3d6e">録音形式</p>
+                    <div class="radio-group-item">
+                        
+                        <label>　</label>
+                        <label><input type="radio" name="time" value="50秒間だけ録音">  50秒間 </label>
+                        <label>　</label>
+                        <label>　</label>
+                        <label><input type="radio" name="time" value="録音終了ボタンを押すまで録音"> 終了時 </label>
+                        <label>　</label>
+                    </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <!-- 研修生のプルダウン -->
+            <select class="dropdown" id="traineeSelect">
+                <!-- Jinja2を使って研修生リストを動的に生成 -->
+                {% for trainee in trainees %}
+                    <option value="{{ trainee.id }}">{{ trainee.name }}</option>
+                {% endfor %}
+            </select>
+        
+
+            <!-- ボタンのグループ化 -->
+            <div class="button-container">
+                <!-- 録音開始ボタン -->
+                <button class="button" id="startRecordingButton" onclick="startRecording()">
+                    <img src="images/Record.png" style="width: 140px; height:auto;" >
+                </button>
+                <!-- 録音終了ボタン (最初は非表示) -->
+                <button class="button" id="stopRecordingButton" style="display: none;" onclick="stopRecording()">
+                    <img src="images/Recordstop.png" style="width: 60px; height:auto;" >
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // サーバーから録音済み情報を受け取る
+        const recordedCounts = {{ recorded_counts | tojson }};
+    let mediaRecorder;
+    let audioChunks = [];
+
+    document.getElementById('traineeSelect').addEventListener('change', updateRadioButtons);
+
+    function updateRadioButtons() {
+        const traineeId = document.getElementById('traineeSelect').value;
+        const recordedCountsForTrainee = recordedCounts[traineeId] || [];
+        const radioButtons = document.querySelectorAll('input[name="count"]');
+
+        // すべてのラジオボタンを有効化
+        radioButtons.forEach(button => {
+            button.disabled = false; // ラジオボタンを有効化
+        });
+
+        // 録音済みのラジオボタンを無効化
+        recordedCountsForTrainee.forEach(count => {
+            const buttonToDisable = document.querySelector(`input[name="count"][value="${count}"]`);
+            if (buttonToDisable) {
+                buttonToDisable.disabled = true;
+            }
+        });
+    }
+
+    // ページロード時にラジオボタンの状態を初期化
+    window.onload = updateRadioButtons;
+
+    // 録音開始ボタンの処理
+    async function startRecording() {
+        const traineeSelect = document.getElementById('traineeSelect'); // 研修生選択プルダウンメニューの要素を取得
+        const selectedTraineeId = traineeSelect.value; //選択された研修生ID
+        const selectedTraineeName = traineeSelect.options[traineeSelect.selectedIndex].text;  // 選択された研修生の名前を
+        const count = document.querySelector('input[name="count"]:checked'); // 選択された審査回数を取得
+        const time = document.querySelector('input[name="time"]:checked'); // 選択された録音時間の設定を取得
+
+
+        // 審査回数と録音時間が選択されていない場合、警告を表示
+        if (!count || !time) {
+            alert("審査回数と時間設定を選択してください");
+            return; // 選択されていない場合は録音開始処理を中止
+        }
+
+        // ボタンの表示制御
+        document.getElementById('startRecordingButton').style.display = 'none'; // 録音開始ボタンを非表示に
+        if (time.value === '録音終了ボタンを押すまで録音') {
+            document.getElementById('stopRecordingButton').style.display = 'block'; // 終了ボタンを表示
+        }
+
+        // 音声の録音
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true }); // ユーザーのマイクから音声を取得
+        mediaRecorder = new MediaRecorder(stream); // MediaRecorderオブジェクトを作成し、音声ストリームを指定
+
+        // 録音データが利用可能になったときに呼び出されるイベントハンドラ
+        mediaRecorder.ondataavailable = event => {
+            audioChunks.push(event.data);
+        };
+
+        // 録音が停止したときに呼び出されるイベントハンドラ
+        mediaRecorder.onstop = async () => {
+            const userConfirmed = confirm("録音を終了してもよいですか？");
+
+            if (!userConfirmed) {
+                // 録音キャンセルの場合
+                audioChunks = []; // 録音データをクリア
+                alert("録音はキャンセルされました。");
+
+                // 録音開始ボタンを再表示
+                document.getElementById('startRecordingButton').style.display = 'block';
+
+                return;
+            }
+
+            // 「はい」が選択された場合のみ処理を続行
+            const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+            const formData = new FormData();
+
+            // ファイル名を"研修生名_審査回数.wav"形式で指定
+            const fileName = `${selectedTraineeName}_${count.value}.webm`;
+            formData.append('audio', audioBlob, fileName);
+            formData.append('trainee_id', selectedTraineeId);
+            formData.append('recording_count', count.value);
+
+            // サーバーに録音データを送信
+            const response = await fetch('/save_audio', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            alert(result.message);
+            window.location.reload();  // 録音完了後にリロードしてリセット
+        };
+
+        mediaRecorder.start(); // 録音開始
+
+        // 録音時間が"50秒間だけ録音"の場合
+        if (time.value === '50秒間だけ録音') {
+            setTimeout(() => {
+                stopRecording();
+            }, 50000);  // 50秒後に録音停止
+        }
+    }
+
+    // 録音停止ボタンの処理
+    function stopRecording() {
+        // 録音停止
+        mediaRecorder.stop();
+
+        // 録音終了ボタンを非表示に
+        document.getElementById('stopRecordingButton').style.display = 'none';
+
+        // 録音開始ボタンを再表示
+        document.getElementById('startRecordingButton').style.display = 'block';
+    }
+
+    // メインメニューへ戻る処理
+    function goToMainMenu() {
+        window.location.href = "/";
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新人研修音声解析システム</title>
+    <style>
+        header {
+            display: flex;
+            margin-bottom: 45px; /* 下のマージン */
+            width: 100%;
+            height: 55px;
+            background-color: #658EA7; /* 背景色の設定 */
+            vertical-align: top; /* 上揃え */
+        }
+        /* 見出しのスタイル設定 */
+        h1 {
+            font-size: 20px; /* フォントサイズ */
+            margin-left: 35px;
+            vertical-align: top; /* 上揃え */
+        }
+        h2 {
+            position: absolute;
+            right: 45px;
+            margin-top: 10px;
+            width: 35px;
+            height: auto;
+        }
+        body {
+            font-family: Helvetica;  /* フォントの指定 */
+            margin: 0; /* marginのリセット */
+            padding: 0; /* paddingのリセット */
+            display: flex; /* フレックスボックスを使用 */
+            flex-direction: column; /* 縦に並べる */
+            height: 100vh; /* 高さを画面全体に設定 */
+            background-color: #ffffff; /* 背景色の設定 */
+        }
+        /* 見出しのスタイル設定 */
+        h3 {
+            font-size: 35px; /* フォントサイズ */
+            font-weight: bold; /* 太字 */
+            margin: 20px 0px 20px 150px; /* 上右下左のマージン */
+            text-align: left; /* 左揃え */
+        }
+        /*氏名のスタイル設定 */
+        h4 {
+            font-size: 35px; /* フォントサイズ */
+            font-weight: bold; /* 太字 */
+            text-align: left; /* 左揃え */
+            margin: 20px 0px 20px 5px; /* 上右下左のマージン */
+            width: 300px; /* 幅 */
+        }
+        /* コンテナのスタイル */
+        .container {
+            display: flex; /* フレックスボックスを使用 */
+            width: 1100px; /* 幅 */
+            height: 420px; /* 高さ */
+            margin: 0px 0px 60px 150px; /* 上右下左のマージン */
+            padding: 20px; /* 内部余白 */
+            text-align: center; /* 中央揃え */
+        }
+        /* ラジオボタンのグループ化 */
+        .radio-group {
+            width: 200px; /* 幅 */
+            display: flex; /* フレックスボックスを使用 */
+            font-size: 28px; /* フォントサイズ */
+            text-align: left; /* 左揃え */
+            justify-content: space-between; /* 横に広げる */
+            align-items: flex-start; /* 上揃え */
+            margin-bottom: 40px; /* 下のマージン */
+        }
+        /* 各ラジオボタンのスタイル */
+        .radio-group-item {
+            display: flex; /* フレックスボックスを使用 */
+            flex-direction: column; /* 縦並び */
+        }
+        /* 各ラジオボタンのラベルスタイル */
+        .radio-group label {
+            display: block; /* ブロック要素に変換 */
+            font-weight: bold; /* 太字 */
+            margin-bottom: 10px; /* 下のマージン */
+        }
+        /* 画像表示エリアのスタイル */
+        .fileImage-container {
+            width: 75%; /* 画像エリアの幅 */
+            height: 460px; /* 画像の高さを自動調整 */
+            margin: 0px 30px 0px 0px; /* 上右下左のマージン */
+            padding: 10px; /* 内部余白 */
+            background-color: #f0f0f0; /* 背景色の設定 */
+            border-radius: 10px; /* 角の丸み */
+            background-color: #f0f0f0; /* 背景色の設定 */
+        }
+        
+        /* ラジオボタンと氏名のグループ化 */
+        .member-group {
+            width: 150px; /* グループの幅 */
+            height: 500px; /* グループの高さ */
+            margin-left: 30px; /* 左のマージン */
+        }
+        /* ボタンコンテナのスタイル */
+        .button-container {
+            display: flex; /* フレックスボックスを使用 */
+            justify-content: center; /* 横方向に中央揃え */
+            margin-top: 30px; /* 上のマージン */
+        }
+        /* ボタンのスタイル設定 */
+        .button {
+            width: 300px; /* ボタンの幅 */
+            height: 80px; /* ボタンの高さ */
+            font-size: 30px; /* フォントサイズ */
+            font-weight: bold; /* 太字 */
+            background-color: #CDE2E7; /* 背景色 */
+            border: none; /* ボーダーなし */
+            cursor: pointer; /* カーソルをポインターに */
+            margin: 20px 30px 0px 30px; /* 上右下左のマージン */
+            border-radius: 10px; /* 角を丸くする */
+        }
+        /* ボタンにホバーしたときのスタイル設定 */
+        .button:hover {
+            background-color: #B9CED3; /* ホバー時の背景色 */
+        }
+        /* メインメニューへ戻るボタンのスタイル */
+        .back-button {
+            cursor: pointer; /* カーソルをポインターに */
+            position: absolute;
+            width: 35px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 style="color: #ffffff;">新人研修音声解析システム</h1>
+        <h2><img src="images/Home.png" class="back-button" onclick="goToMainMenu()" ></h2>
+    </header>
+
+    <!-- 指示メッセージ -->
+    <h3>結果表示</h3>
+    <div class="container">
+
+        <div class="fileImage-container">
+            <!-- 初期画像 -->
+            <img id="resultImage" src="images/static/{{trainee.name}}/{{trainee.name}}_音量の変化.png" alt="解析画像" style="width:100%; height:100%;">
+        </div>
+
+        <div class="member-group">
+            <!-- 指示メッセージ -->
+            <h4>氏名: {{ trainee.name }}</h4>
+            <!-- ラジオボタンの選択肢 -->
+            <div class="radio-group">
+                <div class="radio-group-item">
+                <label><input type="radio" name="feature" value="音量の変化" onclick="changeImage()" checked> 大きさ</label>
+                <label><input type="radio" name="feature" value="高さの変化" onclick="changeImage()"> 高さ</label>
+                <label><input type="radio" name="feature" value="速さの変化" onclick="changeImage()"> 速さ</label>
+                <label><input type="radio" name="feature" value="明瞭さの変化" onclick="changeImage()"> 明瞭さ</label>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+     <!-- ボタンのグループ化 -->
+     <div class="button-container">
+        <!-- テキスト表示ボタン -->
+        <form id="textForm" action="/text" method="get">
+            <input type="hidden" name="trainee_id" value="{{ trainee.id }}">
+            <button type="submit" class="button">テキスト表示</button>
+        </form>
+        <!-- 研修生選択画面に戻るボタン -->
+        <button class="button" onclick="showChoice()">研修生選択へ戻る</button>
+    </div>
+
+    <script>
+        
+        const graphFiles = {{ graph_files | tojson }};
+        const imageElement = document.getElementById('resultImage');
+        
+        
+        function changeImage() {
+            const selectedFeature = document.querySelector('input[name="feature"]:checked').value;
+            const traineeName = "{{ trainee.name }}";
+            const imageElement = document.getElementById('resultImage');
+            imageElement.src = `images/static/${traineeName}/${traineeName}_${selectedFeature}.png`;
+        }
+
+        // 研修生選択画面へ戻るボタンが押された時の処理
+        function showChoice() {
+        window.location.href = "/choice";
+        }
+
+        // メインメニューへ戻るボタンが押された時の処理
+        function goToMainMenu() {
+            window.location.href = "/";
+        }
+    </script>
+</body>
+</html>

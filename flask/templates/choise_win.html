@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新人研修音声解析システム</title>
+    <style>
+        header {
+            display: flex;
+            margin-bottom: 45px; /* 下のマージン */
+            width: 100%;
+            height: 55px;
+            background-color: #658EA7; /* 背景色の設定 */
+            vertical-align: top; /* 上揃え */
+        }
+        /* 見出しのスタイル設定 */
+        h1 {
+            font-size: 20px; /* フォントサイズ */
+            margin-left: 35px;
+            vertical-align: top; /* 上揃え */
+        }
+        h2 {
+            position: absolute;
+            right: 45px;
+            margin-top: 10px;
+            width: 35px;
+            height: auto;
+        }
+        body {
+            font-family: Helvetica;  /* フォントの指定 */
+            margin: 0; /* marginのリセット */
+            padding: 0; /* paddingのリセット */
+            display: flex; /* フレックスボックスを使用 */
+            flex-direction: column; /* 縦に並べる */
+            height: 100vh; /* 高さを画面全体に設定 */
+            background-color: #ffffff; /* 背景色の設定 */
+        }
+        /* 見出しのスタイル設定 */
+         h3 {
+            font-size: 35px; /* フォントサイズ */
+            margin: 20px 0px 20px 150px; /* 上右下左のマージン */
+            text-align: left; /* 左揃え */
+        }
+        /* コンテナのスタイル */
+        .container {
+            display: flex;
+            height: 700px; /* 高さを画面全体に設定 */
+            width: 800px; /* 幅 */
+            margin: 0 auto; /* 自動的に中央配置 */
+            padding: 20px; /* 内部余白 */
+            text-align: center; /* 中央揃え */
+            justify-content: center; /* 垂直中央揃え */
+        }
+        /* プルダウンボックスのスタイル設定 */
+        .dropdown {
+            width: 400px; /* プルダウンの幅 */
+            height: 100px; /* プルダウンの高さ */
+            margin-top: 10px;
+            margin-bottom: 30px; /* 下のマージン */
+            font-size: 30px; /* フォントサイズ */
+            text-align: center; /* 中央揃え */
+            border: 3px solid #0e3d6e; /* 枠の太さと色 */
+            padding: 5px; /* 内側の余白 */
+            border-radius: 10px; /* 角を丸くする（必要に応じて） */
+        }
+        /* ボタンコンテナのスタイル */
+        .button-container {
+            display: flex; /* フレックスボックスを使用 */
+            justify-content: center; /* 横方向に中央揃え */
+            margin-top: 390px; /* Y軸で少し下に配置 */
+        }
+        /* ボタンのスタイル設定 */
+        .button {
+            width: 300px; /* ボタンの幅 */
+            height: 80px; /* ボタンの高さ */
+            font-size: 30px; /* フォントサイズ */
+            font-weight: bold; /* 太字 */
+            background-color: #CDE2E7; /* 背景色 */
+            border: none; /* ボーダーなし */
+            cursor: pointer; /* カーソルをポインターに */
+            margin: 20px 30px 0px 30px; /* 上右下左のマージン */
+            border-radius: 10px; /* 角を丸くする */
+        }
+        /* ボタンにホバーしたときのスタイル設定 */
+        .button:hover {
+            background-color: #B9CED3; /* ホバー時の背景色 */
+        }
+        /* メインメニューへ戻るボタンのスタイル */
+        .back-button {
+            cursor: pointer; /* カーソルをポインターに */
+            position: absolute;
+            width: 35px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 style="color: #ffffff;">新人研修音声解析システム</h1>
+        <h2><img src="images/Home.png" class="back-button" onclick="goToMainMenu()" ></h2>
+    </header>
+
+    <!-- 指示メッセージ -->
+    <h3>研修生選択</h3>
+
+
+    <div class="container">
+
+        <!-- 研修生のプルダウン -->
+        <form id="traineeForm" action="?" method="get">
+            <select name="trainee_id" class="dropdown" required>
+                <!-- ここでFlaskのJinja2テンプレートエンジンを使って動的に研修生リストを生成 -->
+                {% for trainee in trainees %}
+                    <option value="{{ trainee.id }}">{{ trainee.name }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- ボタンのグループ化 -->
+            <div class="button-container">
+            <!-- テキスト表示ボタン -->
+                <button type="submit" class="button" formaction="/text">テキスト表示</button>
+            <!-- 結果表示ボタン -->
+                <button type="submit" class="button" formaction="/result">結果表示</button>
+            </div>
+        </form>
+    </div>
+
+    
+
+    <script>
+        // 分析結果を表示する関数
+        function showResult() {
+            // Flaskのルート '/result' に遷移
+            window.location.href = "/result";
+        }
+
+        // メインメニューへ戻るボタンが押された時の処理
+        function goToMainMenu() {
+            window.location.href = "/";
+        }
+    </script>
+    
+</body>
+</html>

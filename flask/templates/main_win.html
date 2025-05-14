@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新人研修音声解析システム</title>
+    <style>
+        
+        header {
+            margin-bottom: 45px; /* 下のマージン */
+            width: 100%;
+            height: 55px;
+            background-color: #658EA7; /* 背景色の設定 */
+            vertical-align: top; /* 上揃え */
+        }
+        /* ヘッダーのスタイル設定 */
+        h1 {
+            font-size: 20px; /* フォントサイズ */
+            margin-left: 35px;
+            vertical-align: top; /* 上揃え */
+        }
+        body {
+            font-family: Helvetica;  /* フォントの指定 */
+            margin: 0; /* marginのリセット */
+            padding: 0; /* paddingのリセット */
+            display: flex; /* フレックスボックスを使用 */
+            align-items: center; /* 中央揃え */
+            flex-direction: column; /* 縦に並べる */
+            height: 100vh; /* 高さを画面全体に設定 */
+            width: 100%;
+            vertical-align: top; /* 上揃え */
+            background-color: #ffffff; /* 背景色の設定 */
+        }
+        
+        /* コンテナのスタイル */
+        .container {
+            display: flex; /* フレックスボックスを使用 */
+            align-items: center; /* 中央揃え */
+            justify-content: center; /* 垂直中央揃え */
+            width: 1100px; /* 幅 */
+            height: 420px; /* 高さ */
+            margin: 120px 0px 60px 0px; /* 上右下左のマージン */
+            padding: 20px; /* 内部余白 */
+            text-align: center; /* 中央揃え */
+        }
+        /* ボタンのスタイル設定 */
+        .button {
+            width: 300px; /* ボタンの幅 */
+            height: 300px; /* ボタンの高さ */
+            font-size: 25px; /* フォントサイズ */
+            font-weight: bold; /* 太字 */
+            background-color: #CDE2E7; /* 背景色 */
+            border: none; /* ボーダーなし */
+            cursor: pointer; /* カーソルをポインターに */
+            margin: 0px 40px 0px 40px; /* 上右下左のマージン */
+            display: flex;  /* フレックスボックスを使用 */
+            flex-direction: column; /* 縦方向に配置 */
+            align-items: center; /* 水平方向中央揃え */
+            justify-content: space-between; /* 上下のスペースを均等に */
+            padding: 20px; /* 内部余白を追加 */
+            border-radius: 50px; /* 角の丸み */
+        }
+        .button p {
+            margin: 0; /* デフォルトのマージンをリセット */
+            color: #0e3d6e; /* テキストの色 */
+        }
+        .button img {
+            margin-top: 25px; /* 画像の下にスペースを持たせる */
+        }
+        /* ボタンにホバーしたときのスタイル設定 */
+        .button:hover {
+            background-color: #B9CED3; /* ホバー時の背景色 */
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- 指示メッセージ -->
+    <header>
+        <h1 style="color: #ffffff;">新人研修音声解析システム</h1>
+    </header>
+
+    <div class="container">
+
+        <!-- 録音ボタン -->
+        <button class="button" onclick="goToRecordPage()">
+            <img src="images/Record.png" style="width: 160px; height:auto;" >
+            <p style="color:#0e3d6e">録音</p>
+        </button>
+
+        <!-- 分析結果表示ボタン -->
+        <button class="button" onclick="showChoice()">
+            <img src="images/Choice.png" style="width: 160px; height:auto;" >
+            <p style="color:#0e3d6e">結果表示</p>
+        </button>
+        <!-- 研修生編集ボタン -->
+        <button class="button" onclick="editMembers()">
+            <img src="images/Members.png" style="width: 160px; height:auto;" >
+            <p style="color:#0e3d6e">研修生編集</p>
+        </button>
+
+    </div>
+
+    <script>
+        // 録音画面に移動する処理
+        function goToRecordPage() {
+            // Flaskのルート '/record' に遷移
+            window.location.href = "/record";
+        }
+        
+        // 分析結果に移動する処理
+        function showChoice() {
+            // Flaskのルート '/choice' に遷移
+            window.location.href = "/choice"
+        }
+
+        // 研修生を編集する関数
+        function editMembers() {
+            // Flaskのルート '/members' に遷移
+            window.location.href = "/members"
+        }
+    </script>
+    
+</body>
+</html>

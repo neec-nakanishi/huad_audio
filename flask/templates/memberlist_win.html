@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新人研修音声解析システム</title>
+    <style>
+        header {
+            display: flex;
+            margin-bottom: 45px; /* 下のマージン */
+            width: 100%;
+            height: 55px;
+            background-color: #658EA7; /* 背景色の設定 */
+            vertical-align: top; /* 上揃え */
+        }
+        /* 見出しのスタイル設定 */
+        h1 {
+            font-size: 20px; /* フォントサイズ */
+            margin-left: 35px;
+            vertical-align: top; /* 上揃え */
+        }
+        h2 {
+            position: absolute;
+            right: 45px;
+            margin-top: 10px;
+            width: 35px;
+            height: auto;
+        }
+        body {
+            font-family: Helvetica;  /* フォントの指定 */
+            margin: 0; /* marginのリセット */
+            padding: 0; /* paddingのリセット */
+            display: flex; /* フレックスボックスを使用 */
+            flex-direction: column; /* 縦に並べる */
+            height: 100vh; /* 高さを画面全体に設定 */
+            background-color: #ffffff; /* 背景色の設定 */
+        }
+        /* 見出しのスタイル設定 */
+        h3 {
+            font-size: 35px; /* フォントサイズ */
+            margin: 20px 0px 20px 150px; /* 上右下左のマージン */
+            text-align: left; /* 左揃え */
+        }
+        /* コンテナのスタイル */
+        .container {
+            width: 800px; /* 幅 */
+            height: 650px;
+            margin: 0 auto; /* 自動的に中央配置 */
+            padding: 20px; /* 内部余白 */
+            text-align: center; /* 中央揃え */
+        }
+        /* ボタンコンテナのスタイル */
+        .button-container {
+            display: flex; /* フレックスボックスを使用 */
+            justify-content: center; /* 横方向に中央揃え */
+            margin-top: 30px; /* 上のマージン */
+        }
+        /* ボタンのスタイル設定 */
+        .button {
+            width: 280px; /* ボタンの幅 */
+            height: 80px; /* ボタンの高さ */
+            font-size: 30px; /* フォントサイズ */
+            font-weight: bold; /* 太字 */
+            background-color: #CDE2E7; /* 背景色 */
+            border: none; /* ボーダーなし */
+            cursor: pointer; /* カーソルをポインターに */
+            margin: 120px 80px 0px 80px; /* 上右下左のマージン */
+            border-radius: 10px; /* 角を丸くする */
+        }
+        /* ボタンにホバーしたときのスタイル設定 */
+        .button:hover {
+            background-color: #B9CED3; /* ホバー時の背景色 */
+        }
+        /* メインメニューへ戻るボタンのスタイル */
+        .back-button {
+            cursor: pointer; /* カーソルをポインターに */
+            position: absolute;
+            width: 35px;
+            height: auto;
+        }
+        /* テーブルのスタイル */
+        table {
+            width: 100%; /* テーブルの幅 */
+            margin-top: 20px; /* 上のマージン */
+            border-collapse: collapse; /* テーブルのセルの境界線を1本にまとめる */
+        }
+        th, td {
+            font-size: 23px; /* フォントサイズ */
+            margin: 0;
+            padding: 10px; /* padding */
+            border: 1px solid #658EA7; /* セルの境界線を設定 */
+        }
+        th {
+            background-color: #CDE2E7; /* 背景色 */
+        }
+        /* スクロール可能にするためのスタイル */
+        .scrollable-table {
+            max-height: 400px;  /* テーブルの高さを制限 */
+            overflow-y: auto; /* Y軸のスクロールを有効 */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 style="color: #ffffff;">新人研修音声解析システム</h1>
+        <h2><img src="images/Home.png" class="back-button" onclick="goToMainMenu()" ></h2>    </header>
+
+    <h3>研修生一覧</h3>
+
+    <div class="container">
+
+        <!-- スクロール可能な研修生一覧の表示 -->
+        <div class="scrollable-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th><p style="color: #0e3d6e; font-size: 23px; margin: 0; padding: 0;">ID</p></th>
+                        <th><p style="color:#0e3d6e; font-size: 23px; margin: 0; padding: 0;">氏名</p></th>
+                        <th><p style="color:#0e3d6e; font-size: 23px; margin: 0; padding: 0;">操作</p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trainee in trainees %}
+                    <tr>
+                        <td>{{ trainee.id }}</td>
+                        <td><a href="{{ url_for('trainee_audio', trainee_id=trainee.id) }}">{{ trainee.name }}</a></td>
+                        <td><a href="{{ url_for('delete', id=trainee.id) }}" style="color: #8e1c1a;" onclick="return confirmDeletion();">削除</a></td>
+                    </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3">研修生が登録されていません。</td>
+                </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="button-container">
+            <form action="{{ url_for('import_data') }}" method="post" enctype="multipart/form-data">
+                <button type="submit" class="button" for="file">追加</button>
+                <input type="file" name="file" id="file">
+            </form>
+            
+            <form action="{{ url_for('delete_all') }}" method="post" onsubmit="return confirmAllDeletion();">
+                <button type="submit" class="button" style="background-color: rgba(175, 51, 51, 0.993); color: white;">すべて削除</button>
+            </form>
+        </div>
+
+    </div>
+        
+
+    <script>
+        function confirmDeletion() {
+            return confirm("削除しますか？"); //OKを押すとTrueを返し、削除リンクに進む
+        }
+
+        function confirmAllDeletion() {
+            return confirm("本当に削除しますか？この操作は取り消せません。"); //OKを押すとTrueを返し、フォーム送信
+        }
+        
+        function goToMainMenu() {
+            window.location.href = "/";
+        }
+    </script>
+
+</body>
+</html>
